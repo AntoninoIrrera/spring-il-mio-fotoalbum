@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.auth.pojo.User;
 import com.example.demo.auth.service.UserService;
 import com.example.demo.pojo.Categorie;
+import com.example.demo.pojo.Commento;
 import com.example.demo.pojo.Foto;
 import com.example.demo.service.CategorieService;
+import com.example.demo.service.CommentoService;
 import com.example.demo.service.FotoService;
 
 import jakarta.validation.Valid;
@@ -36,6 +38,9 @@ public class AdminFotoController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	CommentoService commentoService;
 	
 	@GetMapping("/foto")
 	public String index(Model model,Authentication authentication) {
@@ -93,8 +98,8 @@ public class AdminFotoController {
 		model.addAttribute("categorie",categorie);
 		model.addAttribute("foto", foto);
 
-		
-	
+		List<Commento> commenti = foto.getCommento();
+		model.addAttribute("commenti", commenti);
 		
 		return "fotoShow";
 	}

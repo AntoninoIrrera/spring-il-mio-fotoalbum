@@ -23,7 +23,9 @@
 		<p th:each="categoria : ${categorie}" th:text="${categoria.titolo}"></p>
 	</div>
 	
-	
+	<div>
+		<p th:each="commento : ${commenti}" th:text="${commento.messaggio}"></p>
+	</div>
 	
 </body>
 </html>
