@@ -67,6 +67,7 @@ export default {
         :url="foto.url" :categorie="foto.categorie" :show="true" />
     
     <div class="container">
+        <h1>Commenta</h1>
         <div class="alert alert-danger mt-2" v-if="errors.length != 0">
                 <p v-for="error in errors" class="mb-0">{{ error }}</p>
             </div>
