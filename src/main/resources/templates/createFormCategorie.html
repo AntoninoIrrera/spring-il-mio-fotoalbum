@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form th:action="@{/admin/categorie/create}" method="post">
+
+		<label>titolo:</label>
+		<input type="text" name="titolo" th:value="${categorie.titolo}">
+		<p th:if="${errori != null && errori.hasFieldErrors('titolo')}" th:text="${errori.getFieldError('titolo').defaultMessage}"></p>
+		<button type="submit">crea</button>
+	</form>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form th:action="@{/admin/foto/update/{id}(id = ${foto.id})}" method="post">
+		<label>titolo:</label>
+		<input type="text" name="titolo" th:value="${foto.titolo}">
+		<p th:if="${errori != null && errori.hasFieldErrors('titolo')}" th:text="${errori.getFieldError('titolo').defaultMessage}"></p>
+		<label>descrizione:</label>
+		<textarea rows="10" cols="10" name="descrizione" th:text="${foto.descrizione}"></textarea>
+		<p th:if="${errori != null && errori.hasFieldErrors('descrizione')}" th:text="${errori.getFieldError('descrizione').defaultMessage}"></p>
+		<label>url:</label>
+		<textarea rows="10" cols="10" name="url" th:text="${foto.url}"></textarea>
+		<p th:if="${errori != null && errori.hasFieldErrors('url')}" th:text="${errori.getFieldError('url').defaultMessage}"></p>
+		<label>visibile:</label>
+		<label>SI</label>
+		<input type="radio" name="visibile" value="1" th:checked="${foto.visibile} == true">
+		<label>NO</label>
+		<input type="radio" name="visibile" value="0" th:checked="${foto.visibile} == false">
+		<p th:if="${errori != null && errori.hasFieldErrors('visibile')}" th:text="${errori.getFieldError('visibile').defaultMessage}"></p>
+		
+		<div
+			th:each="categoria : ${categorie}"
+			
+		>
+			<input th:id="${'categoria-' + categoria.id}" th:value="${categoria.id}" type="checkbox" name="categorie" th:checked="${foto.categorie != null and foto.categorie.contains(categoria)}">
+			<label th:for="${'categoria-' + categoria.id}">[[ ${categoria.titolo} ]]</label>
+		</div>
+		
+		<button type="submit">Modifica</button>
+	</form>
+</body>
+</html>

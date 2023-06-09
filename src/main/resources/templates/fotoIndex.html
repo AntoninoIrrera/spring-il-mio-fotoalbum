@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.3/css/bootstrap.min.css}"/>
+<title>Insert title here</title>
+</head>
+<body>
+
+<form method="get" th:action="@{/admin/foto/filtro}">
+	<input type="text" name="titolo" th:value="${titolo}">
+	<button type="submit">Cerca</button>
+</form>
+
+<a th:href="@{/admin/foto/create}">Inserisci nuova foto</a>
+
+<a th:href="@{/admin/categorie}">Categorie</a>
+
+<table class="table" th:if="${foto.size() != 0}">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">titolo</th>
+      <th scope="col">descrizione</th>
+      <th scope="col">url</th>
+      <th scope="col">visibile</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="foto : ${foto}">
+      <th scope="row" th:text="${foto.id}"></th>
+      <td th:text="${foto.titolo}"></td>
+      <td th:text="${foto.descrizione}"></td>
+       <td><img class="w-50 h-50" th:src="${foto.url}"/></td>
+      <td th:text="${foto.visibile}"></td>
+        <td>
+      		<a class="btn btn-primary" th:href="@{/admin/foto/{id}(id=${foto.id})}">show</a>
+    	</td>
+    	<td>
+      		<a class="btn btn-primary" th:href="@{/admin/foto/update/{id}(id=${foto.id})}">update</a>
+    	</td>
+    	<td>
+      		<a class="btn btn-primary" th:href="@{/admin/foto/delete/{id}(id=${foto.id})}">delete</a>
+    	</td>
+    </tr>
+  </tbody>
+</table>
+
+<div th:if="${foto.size() == 0}">
+	<h1>Nessuna foto da visualizzare</h1>
+</div>
+
+</body>
+</html>
