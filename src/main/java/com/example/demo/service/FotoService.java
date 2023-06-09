@@ -36,7 +36,7 @@ public class FotoService {
 		return fotoRepo.findByTitoloContaining(nome);
 	}
 	
-	public void deletePizza(Foto foto){
+	public void delete(Foto foto){
 		
 		fotoRepo.delete(foto);
 		

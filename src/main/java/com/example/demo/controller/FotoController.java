@@ -132,7 +132,7 @@ public class FotoController {
 		Foto foto = fotoOpt.get();
 		
 
-		fotoService.deletePizza(foto);
+		fotoService.delete(foto);
 		
 		return "redirect:/superAdmin/foto";
 	}

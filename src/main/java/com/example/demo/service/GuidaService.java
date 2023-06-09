@@ -31,7 +31,7 @@ public List<Guida> findAll() {
 	
 	
 	
-	public void deletePizza(Guida lead){
+	public void delete(Guida lead){
 		
 		guidaRepo.delete(lead);
 		

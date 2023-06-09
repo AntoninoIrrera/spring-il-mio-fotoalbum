@@ -154,7 +154,7 @@ public class AdminFotoController {
 		Foto foto = fotoOpt.get();
 		
 
-		fotoService.deletePizza(foto);
+		fotoService.delete(foto);
 		
 		return "redirect:/admin/foto";
 	}
