@@ -24,7 +24,7 @@ export default {
             })
                 .then((response) => {
 
-                    // console.log(response.data);
+                    console.log(response.data);
                     this.foto = response.data;
 
 
@@ -52,7 +52,7 @@ export default {
 
             <div class="row">
                 <FotoComp v-for="foto in foto" :titolo="foto.titolo" :id="foto.id" :descrizione="foto.descrizione"
-                    :url="foto.url" :categorie="foto.categorie"/>
+                    :url="foto.reimage" :categorie="foto.categorie"/>
             </div>
 
 

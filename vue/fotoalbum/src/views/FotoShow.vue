@@ -64,7 +64,7 @@ export default {
 <template>
     <h1>prova</h1>
     <FotoComp  :titolo="foto.titolo" :id="foto.id" :descrizione="foto.descrizione"
-        :url="foto.url" :categorie="foto.categorie" :show="true" />
+        :url="foto.reimage" :categorie="foto.categorie" :show="true" />
     
     <div class="container">
         <h1>Commenta</h1>

@@ -1,9 +1,14 @@
 package com.example.demo.pojo;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.auth.pojo.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -12,9 +17,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -35,9 +42,18 @@ public class Foto {
 	@Column(columnDefinition = "TEXT")
 	private String descrizione;
 	
-	@NotBlank(message = "l'url non può essere vuota")
-	@Column(columnDefinition = "TEXT")
-	private String url;
+//	@NotBlank(message = "l'url non può essere vuota")
+//	@Column(columnDefinition = "TEXT")
+//	private String url;
+	
+	@Lob
+	@Column(length=16777215)
+	@JsonIgnore
+	private byte[] url;
+	
+	@Transient
+	@JsonIgnore
+	MultipartFile mpImage;
 	
 	private boolean visibile;
 	
@@ -81,13 +97,11 @@ public class Foto {
 	public Foto(
 			String titolo,
 			String descrizione,
-			String url,
 			User user) {
 		
 		
 		this.titolo = titolo;
 		this.descrizione = descrizione;
-		this.url = url;
 		this.visibile = true;
 		this.user = user;
 		
@@ -126,16 +140,40 @@ public class Foto {
 	}
 
 
-	public String getUrl() {
+	public boolean hasUrl() {
+		
+		return getUrl() != null;
+	}
+	public byte[] getUrl() {
 		return url;
 	}
-
-
-	public void setUrl(String url) {
+	public void setUrl(byte[] url) {
 		this.url = url;
 	}
-
-
+	public boolean hasMpImage() {
+		
+		return getMpImage() != null;
+	}
+	public MultipartFile getMpImage() {
+		return mpImage;
+	}
+	public void setMpImage(MultipartFile mpImage) {
+	    try {
+	        setUrl(mpImage.getBytes());
+	        this.mpImage = mpImage;
+	    } catch (IOException e) {
+	        
+	    }
+	}
+	
+	@JsonIgnore
+	public String getREImage() {
+		
+		return Base64.getEncoder().encodeToString(getUrl());
+	}
+	
+//	trovare soluzione per immagine troppo grande
+	
 	public boolean isVisibile() {
 		return visibile;
 	}
@@ -158,7 +196,7 @@ public class Foto {
 
 	@Override
 	public String toString() {
-		return "Foto [id=" + id + ", titolo=" + titolo + ", descrizione=" + descrizione + ", url=" + url + ", visibile="
+		return "Foto [id=" + id + ", titolo=" + titolo + ", descrizione=" + descrizione + ", visibile="
 				+ visibile + "]";
 	}
 	

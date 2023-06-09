@@ -74,11 +74,11 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 		
 		userService.save(userAdmin3);
 		
-		Foto f1 = new Foto("prova1", "provaprova", "https://www.keblog.it/wp-content/uploads/2021/12/foto-piu-belle-2021-08.jpg",userAdmin1);
+		Foto f1 = new Foto("prova1", "provaprova",userAdmin1);
 		
 		fotoService.save(f1);
 		
-		Foto f2 = new Foto("prova2", "provaprovaprova", "https://www.keblog.it/wp-content/uploads/2021/12/foto-piu-belle-2021-08.jpg",userAdmin2);
+		Foto f2 = new Foto("prova2", "provaprovaprova",userAdmin2);
 		
 		fotoService.save(f2);
 		
