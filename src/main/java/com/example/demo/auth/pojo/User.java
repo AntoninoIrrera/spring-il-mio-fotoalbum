@@ -2,11 +2,15 @@ package com.example.demo.auth.pojo;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.example.demo.pojo.Foto;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,6 +18,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -35,6 +40,10 @@ public class User implements UserDetails {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Role> roles;
 	
+	@OneToMany(mappedBy = "user")
+	@JsonManagedReference
+	private List<Foto> foto;
+	
 	public User() { }
 	public User(String username, String password, Role... roles) {
 		
@@ -44,6 +53,12 @@ public class User implements UserDetails {
 	}
 	
 
+	public List<Foto> getFoto() {
+		return foto;
+	}
+	public void setFoto(List<Foto> foto) {
+		this.foto = foto;
+	}
 	@Override
 	public boolean isAccountNonExpired() {
 		

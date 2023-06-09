@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form th:action="@{/admin/categorie/update/{id}(id = ${categorie.id})}" method="post">
+	<form th:action="@{/superAdmin/categorie/update/{id}(id = ${categorie.id})}" method="post">
 
 		<label>titolo:</label>
 		<input type="text" name="titolo" th:value="${categorie.titolo}">

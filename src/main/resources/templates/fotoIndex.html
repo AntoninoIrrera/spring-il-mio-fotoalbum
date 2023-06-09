@@ -7,14 +7,20 @@
 </head>
 <body>
 
-<form method="get" th:action="@{/admin/foto/filtro}">
+<form method="get" th:action="@{/superAdmin/foto/filtro}"  sec:authorize="hasAuthority('SUPERADMIN')">
 	<input type="text" name="titolo" th:value="${titolo}">
 	<button type="submit">Cerca</button>
 </form>
 
-<a th:href="@{/admin/foto/create}">Inserisci nuova foto</a>
+<form method="get" th:action="@{/admin/foto/filtro}"  sec:authorize="hasAuthority('ADMIN')">
+	<input type="text" name="titolo" th:value="${titolo}">
+	<button type="submit">Cerca</button>
+</form>
 
-<a th:href="@{/admin/categorie}">Categorie</a>
+<a th:href="@{/superAdmin/foto/create}" sec:authorize="hasAuthority('SUPERADMIN')">Inserisci nuova foto</a>
+<a th:href="@{/admin/foto/create}" sec:authorize="hasAuthority('ADMIN')">Inserisci nuova foto</a>
+
+<a th:href="@{/superAdmin/categorie}" sec:authorize="hasAuthority('SUPERADMIN')">Categorie</a>
 
 <table class="table" th:if="${foto.size() != 0}">
   <thead>
@@ -34,13 +40,16 @@
        <td><img class="w-50 h-50" th:src="${foto.url}"/></td>
       <td th:text="${foto.visibile}"></td>
         <td>
-      		<a class="btn btn-primary" th:href="@{/admin/foto/{id}(id=${foto.id})}">show</a>
+      		<a class="btn btn-primary" th:href="@{/superAdmin/foto/{id}(id=${foto.id})}"  sec:authorize="hasAuthority('SUPERADMIN')">show</a>
+      		<a class="btn btn-primary" th:href="@{/admin/foto/{id}(id=${foto.id})}"  sec:authorize="hasAuthority('ADMIN')">show</a>
     	</td>
     	<td>
-      		<a class="btn btn-primary" th:href="@{/admin/foto/update/{id}(id=${foto.id})}">update</a>
+      		<a class="btn btn-primary" th:href="@{/superAdmin/foto/update/{id}(id=${foto.id})}"  sec:authorize="hasAuthority('SUPERADMIN')">update</a>
+      		<a class="btn btn-primary" th:href="@{/admin/foto/update/{id}(id=${foto.id})}"  sec:authorize="hasAuthority('ADMIN')">update</a>
     	</td>
     	<td>
-      		<a class="btn btn-primary" th:href="@{/admin/foto/delete/{id}(id=${foto.id})}">delete</a>
+      		<a class="btn btn-primary" th:href="@{/superAdmin/foto/delete/{id}(id=${foto.id})}"  sec:authorize="hasAuthority('SUPERADMIN')">delete</a>
+      		<a class="btn btn-primary" th:href="@{/admin/foto/delete/{id}(id=${foto.id})}"  sec:authorize="hasAuthority('ADMIN')">delete</a>
     	</td>
     </tr>
   </tbody>

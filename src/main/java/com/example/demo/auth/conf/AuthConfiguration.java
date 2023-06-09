@@ -25,6 +25,7 @@ public class AuthConfiguration {
 		return 
 			http.csrf(c->c.disable())
 			.authorizeHttpRequests(a -> a
+			        .requestMatchers("/superAdmin/**").hasAuthority("SUPERADMIN")
 			        .requestMatchers("/admin/**").hasAuthority("ADMIN")
 			        .requestMatchers("/api/**").permitAll()
 			        .requestMatchers("/**").permitAll()

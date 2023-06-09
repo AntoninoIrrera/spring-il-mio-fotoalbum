@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,24 +25,30 @@ import com.example.demo.service.FotoService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/superAdmin")
-public class FotoController {
+@RequestMapping("/admin")
+public class AdminFotoController {
 
-	
 	@Autowired
 	FotoService fotoService;
 	
 	@Autowired
 	CategorieService categorieService;
-	
-	@Autowired
-	UserService UserService;
 
+	@Autowired
+	UserService userService;
 	
 	@GetMapping("/foto")
-	public String index(Model model) {
+	public String index(Model model,Authentication authentication) {
+		 User user = null;
+		    if (authentication != null) {
+		        Object principal = authentication.getPrincipal();
+		        if (principal instanceof User) {
+		            user = (User) principal;
+		        }
+		    }
 		
-		List<Foto> foto = fotoService.findAll();
+		
+		List<Foto> foto = fotoService.findByUser(user);
 		
 		model.addAttribute("foto", foto);
 		
@@ -49,9 +56,17 @@ public class FotoController {
 	}
 	
 	@GetMapping("/foto/filtro")
-	public String indexFiltro(Model model,@RequestParam(required = false) String titolo) {
+	public String indexFiltro(Model model,Authentication authentication,@RequestParam(required = false) String titolo) {
 		
-		List<Foto> foto = fotoService.findByTitolo(titolo);
+		 User user = null;
+		    if (authentication != null) {
+		        Object principal = authentication.getPrincipal();
+		        if (principal instanceof User) {
+		            user = (User) principal;
+		        }
+		    }
+		
+		List<Foto> foto = fotoService.findByTitoloAndUser(titolo,user);
 		
 		model.addAttribute("foto", foto);
 		model.addAttribute("titolo",titolo);
@@ -88,10 +103,10 @@ public class FotoController {
 	@GetMapping("/foto/create")
 	public String create(Model model) {
 		
-		List<Categorie> categorie = categorieService.findAll();
-		List<User> user = UserService.findAll();
 		
-		model.addAttribute("user",user);
+		
+		List<Categorie> categorie = categorieService.findAll();
+		
 		model.addAttribute("categorie",categorie);
 		model.addAttribute("foto",new Foto());
 		
@@ -100,7 +115,14 @@ public class FotoController {
 	}
 	
 	@PostMapping("/foto/create")
-	public String store(@Valid @ModelAttribute Foto foto, BindingResult bindingResult, Model model) {
+	public String store(@Valid @ModelAttribute Foto foto, BindingResult bindingResult, Model model,Authentication authentication) {
+		 User user = null;
+		    if (authentication != null) {
+		        Object principal = authentication.getPrincipal();
+		        if (principal instanceof User) {
+		            user = (User) principal;
+		        }
+		    }
 		
 		if(bindingResult.hasErrors()) {
 			
@@ -115,11 +137,11 @@ public class FotoController {
 			
 			return "createForm";
 		}
-		
+		foto.setUser(user);
 		
 		fotoService.save(foto);
 		
-		return "redirect:/superAdmin/foto";
+		return "redirect:/admin/foto";
 	}
 	
 	
@@ -134,15 +156,25 @@ public class FotoController {
 
 		fotoService.deletePizza(foto);
 		
-		return "redirect:/superAdmin/foto";
+		return "redirect:/admin/foto";
 	}
 	
 
 	@GetMapping("/foto/update/{id}")
 	public String edit(
-			Model model,
+			Model model,Authentication authentication,
 			@PathVariable int id
 		) {
+		User user = null;
+	    if (authentication != null) {
+	        Object principal = authentication.getPrincipal();
+	        if (principal instanceof User) {
+	            user = (User) principal;
+	        }
+	    }
+	
+	 model.addAttribute("user",user);
+	
 		
 		Optional<Foto> fotoOpt = fotoService.findById(id);
 		Foto foto = fotoOpt.get();
@@ -151,11 +183,6 @@ public class FotoController {
 		List<Categorie> categorie = categorieService.findAll();
 		
 		model.addAttribute("categorie",categorie);
-		
-		List<User> user = UserService.findAll();
-		
-		model.addAttribute("user",user);
-		
 		
 		return "updateForm";
 	}
@@ -166,11 +193,18 @@ public class FotoController {
 		      @ModelAttribute Foto foto,
 		      BindingResult bindingResult,
 		      @PathVariable int id,
-		      Model model
+		      Model model,
+		      Authentication authentication
 			
 			
 		) {
-		
+		 User user = null;
+		    if (authentication != null) {
+		        Object principal = authentication.getPrincipal();
+		        if (principal instanceof User) {
+		            user = (User) principal;
+		        }
+		    }
 		
 		if(bindingResult.hasErrors()) {
 			
@@ -184,11 +218,12 @@ public class FotoController {
 			return "updateForm";
 		}
 		
+		foto.setUser(user);
 		
 		
 		fotoService.save(foto);
 		
-		return "redirect:/superAdmin/foto";
+		return "redirect:/admin/foto";
 	}
 	
 	

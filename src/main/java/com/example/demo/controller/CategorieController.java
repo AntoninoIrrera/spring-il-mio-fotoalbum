@@ -20,7 +20,7 @@ import com.example.demo.service.CategorieService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/superAdmin")
 public class CategorieController {
 
 	@Autowired
@@ -63,7 +63,7 @@ public class CategorieController {
 		
 		categorieService.save(categorie);
 		
-		return "redirect:/admin/foto";
+		return "redirect:/superAdmin/foto";
 	}
 	
 	
@@ -87,7 +87,7 @@ public class CategorieController {
 		
 		categorieService.delete(categorie);
 		
-		return "redirect:/admin/foto";
+		return "redirect:/superAdmin/foto";
 	}
 	
 
@@ -130,7 +130,7 @@ public class CategorieController {
 		categorieService.save(categorie
 				);
 		
-		return "redirect:/admin/foto";
+		return "redirect:/superAdmin/foto";
 	}
 }
 	

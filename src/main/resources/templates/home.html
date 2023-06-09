@@ -14,6 +14,7 @@
 		href="/logout"
 		sec:authorize="isAuthenticated()"
 	>LOGOUT</a>
-	<a href="/admin/foto" sec:authorize="isAuthenticated()">Foto</a>
+	<a href="/superAdmin/foto" sec:authorize="hasAuthority('SUPERADMIN')">Foto</a>
+	<a href="/admin/foto" sec:authorize="hasAuthority('ADMIN')">Foto</a>
 </body>
 </html>

@@ -34,28 +34,53 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Foto f1 = new Foto("prova1", "provaprova", "https://www.keblog.it/wp-content/uploads/2021/12/foto-piu-belle-2021-08.jpg");
 		
-		fotoService.save(f1);
-		
-		Foto f2 = new Foto("prova2", "provaprovaprova", "https://www.keblog.it/wp-content/uploads/2021/12/foto-piu-belle-2021-08.jpg");
-		
-		fotoService.save(f2);
 		
 		
 	
+		Role roleSuperAdmin = new Role("SUPERADMIN");
+		
+		
+		roleService.save(roleSuperAdmin);
+		
+		final String pws = new BCryptPasswordEncoder().encode("pws");
+		
+	
+		User userSuperAdmin = new User("super admin", pws, roleSuperAdmin);
+				
+	
+		userService.save(userSuperAdmin);
+		
+		
 		Role roleAdmin = new Role("ADMIN");
 		
 		
 		roleService.save(roleAdmin);
 		
-		final String pws = new BCryptPasswordEncoder().encode("pws");
 		
 	
-		User userAdmin = new User("admin", pws, roleAdmin);
+		User userAdmin1 = new User("admin1", pws, roleAdmin);
 				
 	
-		userService.save(userAdmin);
+		userService.save(userAdmin1);
+		
+		User userAdmin2 = new User("admin2", pws, roleAdmin);
+		
+		
+		userService.save(userAdmin2);
+		
+		User userAdmin3 = new User("admin3", pws, roleAdmin);
+		
+		
+		userService.save(userAdmin3);
+		
+		Foto f1 = new Foto("prova1", "provaprova", "https://www.keblog.it/wp-content/uploads/2021/12/foto-piu-belle-2021-08.jpg",userAdmin1);
+		
+		fotoService.save(f1);
+		
+		Foto f2 = new Foto("prova2", "provaprovaprova", "https://www.keblog.it/wp-content/uploads/2021/12/foto-piu-belle-2021-08.jpg",userAdmin2);
+		
+		fotoService.save(f2);
 		
 		
 	}

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.auth.pojo.User;
 import com.example.demo.interfaccia.FotoRepo;
 import com.example.demo.pojo.Foto;
 
@@ -49,6 +50,15 @@ public class FotoService {
 	public List<Foto> findByTitoloAndVisibileEquals(String nome,boolean visibile) {
 		
 		return fotoRepo.findByTitoloContainingAndVisibileEquals(nome,visibile);
+	}
+	
+	public List<Foto> findByUser(User user){
+		return fotoRepo.findByUser(user);
+	}
+	
+	public List<Foto> findByTitoloAndUser(String nome,User user) {
+		
+		return fotoRepo.findByTitoloContainingAndUser(nome,user);
 	}
 	
 	

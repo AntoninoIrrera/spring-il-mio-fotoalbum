@@ -2,6 +2,8 @@ package com.example.demo.pojo;
 
 import java.util.List;
 
+import com.example.demo.auth.pojo.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -9,7 +11,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -40,20 +44,37 @@ public class Foto {
 	@JsonManagedReference
 	private List<Categorie> categorie;
 	
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	@JsonBackReference
+	private User user;
 	
+	
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
 	public Foto() { }
 
 
 	public Foto(
 			String titolo,
 			String descrizione,
-			String url) {
+			String url,
+			User user) {
 		
 		
 		this.titolo = titolo;
 		this.descrizione = descrizione;
 		this.url = url;
 		this.visibile = true;
+		this.user = user;
 		
 		
 		
