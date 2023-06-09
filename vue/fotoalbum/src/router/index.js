@@ -3,10 +3,16 @@ import { createRouter, createWebHistory } from 'vue-router'
 import FotoIndex from '../views/FotoIndex.vue'
 import MexApp from '../views/MexApp.vue'
 import FotoShow from '../views/FotoShow.vue'
+import HomePage from '../views/HomePage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/home',
+      name: 'home',
+      component: HomePage
+    },
     {
       path: '/foto',
       name: 'foto',
