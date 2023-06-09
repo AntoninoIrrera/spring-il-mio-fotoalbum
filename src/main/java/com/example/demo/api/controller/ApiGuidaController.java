@@ -31,7 +31,7 @@ public class ApiGuidaController {
 	GuidaService guidaService;
 	
 	@PostMapping("/guida")
-	public ResponseEntity<GuidaResponseDto> storePizza(
+	public ResponseEntity<GuidaResponseDto> store(
 			@RequestBody Guida guida, @Valid BindingResult bindingResult) {
 		
 		if (bindingResult.hasErrors()) {

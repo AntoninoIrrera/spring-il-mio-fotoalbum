@@ -1,10 +1,13 @@
 package com.example.demo.pojo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -20,6 +23,20 @@ public class Commento {
 	@Column(columnDefinition = "TEXT")
 	private String messaggio;
 	
+	@ManyToOne
+	@JsonBackReference
+	private Foto foto;
+	
+	
+	
+	public Foto getFoto() {
+		return foto;
+	}
+
+	public void setFoto(Foto foto) {
+		this.foto = foto;
+	}
+
 	public Commento() { }
 
 	public int getId() {

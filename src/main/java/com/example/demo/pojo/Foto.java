@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -41,7 +42,7 @@ public class Foto {
 	private boolean visibile;
 	
 	@ManyToMany
-	@JsonManagedReference
+//	@JsonManagedReference
 	private List<Categorie> categorie;
 	
 	@ManyToOne
@@ -49,7 +50,21 @@ public class Foto {
 	@JsonBackReference
 	private User user;
 	
+	@OneToMany(mappedBy = "foto")
+	@JsonManagedReference
+	private List<Commento> commento;
 	
+	
+	public List<Commento> getCommento() {
+		return commento;
+	}
+
+
+	public void setCommento(List<Commento> commento) {
+		this.commento = commento;
+	}
+
+
 	public User getUser() {
 		return user;
 	}
