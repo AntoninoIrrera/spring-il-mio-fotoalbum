@@ -32,8 +32,8 @@ export default {
                 <p class="card-text">
                     <span v-for="categoria in categorie"> #{{ categoria.titolo }} </span>
                 </p>
-                <!-- <router-link :to="{ name: 'pizzaShow', params: { id: id } }" class="btn btn-success me-2"
-                    v-if="show != true">show</router-link> -->
+                <router-link :to="{ name: 'fotoShow', params: { id: id } }" class="btn btn-success me-2"
+                    v-if="show != true">show</router-link>
             </div>
         </div>
     </div>

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
 import FotoIndex from '../views/FotoIndex.vue'
 import MexApp from '../views/MexApp.vue'
+import FotoShow from '../views/FotoShow.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,6 +16,11 @@ const router = createRouter({
       path: '/messaggio',
       name: 'messaggio',
       component: MexApp
+    },
+    {
+      path: '/:id',
+      name: 'fotoShow',
+      component: FotoShow
     }
     // {
     //   path: '/',
