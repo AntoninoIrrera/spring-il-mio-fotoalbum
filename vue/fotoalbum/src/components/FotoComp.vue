@@ -8,13 +8,39 @@ export default {
         url: String,
         categorie: Object,
         id: Number,
-        show: Boolean
+        show: Boolean,
+        index: Number
     },
     data() {
         return {
-
+            apiAddress: 'http://127.0.0.1:8080/api/v1/foto',
+            images: []
         }
     },
+    methods:{
+        getImage(id) {
+            axios.get(this.apiAddress + `/${id}/image`, { responseType: 'blob' }, {
+                params: {
+
+                }
+            })
+                .then((response) => {
+
+                    console.log(response.data);
+
+                    const blob = response.data;
+                    const url = URL.createObjectURL(blob);
+
+                 
+
+                    this.images.push(url)
+
+                   
+
+
+                })
+        }
+    }
     
 }
 
@@ -24,7 +50,10 @@ export default {
     <div class="col-3 my-3">
         <div class="card" style="width: 18rem;">
             <div class="text-center">
-                <img :src="url" class="card-img-top w-50" alt="...">
+                {{getImage(id) }}
+                
+
+                <img :src="images[index]" class="card-img-top w-50" alt="...">
             </div>
             <div class="card-body">
                 <h5 class="card-title">{{ titolo }}</h5>

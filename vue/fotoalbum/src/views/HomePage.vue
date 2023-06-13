@@ -14,7 +14,8 @@ export default {
             titolo: '',
             contatore: 0,
             intervallo: null,
-
+            apiAddress: 'http://127.0.0.1:8080/api/v1/foto',
+            images: []
         }
     },
     methods: {
@@ -58,6 +59,28 @@ export default {
         stopCarosello() {
             clearInterval(this.intervallo);
         },
+        getImage(id) {
+            axios.get(this.apiAddress + `/${id}/image`, { responseType: 'blob' }, {
+                params: {
+
+                }
+            })
+                .then((response) => {
+
+                    console.log(response.data);
+
+                    const blob = response.data;
+                    const url = URL.createObjectURL(blob);
+
+
+
+                    this.images.push(url)
+
+
+
+
+                })
+        }
     },
     created() {
         this.getFoto();
@@ -78,7 +101,8 @@ export default {
             <div class="position-relative" @mouseover="stopCarosello" @mouseleave="inzioCarosello">
 
                 <div v-for="foto,index in foto" class="text-center">
-                    <img :src="foto.url" alt="" :class="index == contatore ? '' : 'd-none'" class="w-50">
+                    {{ getImage(foto.id) }}
+                    <img :src="images[index]" alt="" :class="index == contatore ? '' : 'd-none'" class="w-50">
                 </div>
                 <div>
                     <button class="avanti" @click="avanti">avanti</button>

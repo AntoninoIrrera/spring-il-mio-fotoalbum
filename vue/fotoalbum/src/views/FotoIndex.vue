@@ -12,7 +12,8 @@ export default {
         return {
             apiURL: 'http://127.0.0.1:8080/api/v1/foto/filtro',
             foto: [],
-            titolo: ''
+            titolo: '',
+            
         }
     },
     methods: {
@@ -31,6 +32,7 @@ export default {
 
                 })
         }
+       
     },
     created() {
         this.getFoto();
@@ -51,8 +53,8 @@ export default {
             </div>
 
             <div class="row">
-                <FotoComp v-for="foto in foto" :titolo="foto.titolo" :id="foto.id" :descrizione="foto.descrizione"
-                    :url="foto.reimage" :categorie="foto.categorie"/>
+                <FotoComp v-for="foto,index in foto" :titolo="foto.titolo" :id="foto.id" :descrizione="foto.descrizione"
+                    :categorie="foto.categorie" :index="index"/>
             </div>
 
 
