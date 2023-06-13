@@ -98,11 +98,14 @@ public class FotoController {
 		model.addAttribute("foto",new Foto());
 		
 		
+	
 		return "createForm";
 	}
 	
 	@PostMapping("/foto/create")
-	public String store(@Valid @ModelAttribute Foto foto, BindingResult bindingResult, Model model) {
+	public String store(@Valid @ModelAttribute Foto foto,BindingResult bindingResult, Model model) {
+		
+
 		
 		if(bindingResult.hasErrors()) {
 			
@@ -115,8 +118,13 @@ public class FotoController {
 			model.addAttribute("foto",foto);
 			model.addAttribute("errori",bindingResult);
 			
+			
+
+			
 			return "createForm";
 		}
+		
+	
 		
 		
 		fotoService.save(foto);
@@ -150,6 +158,7 @@ public class FotoController {
 		Foto foto = fotoOpt.get();
 		model.addAttribute("foto", foto);
 		
+		
 		List<Categorie> categorie = categorieService.findAll();
 		
 		model.addAttribute("categorie",categorie);
@@ -165,19 +174,19 @@ public class FotoController {
 	@PostMapping("/foto/update/{id}")
 	public String update(
 			  @Valid
-		      @ModelAttribute Foto foto,
+			  @ModelAttribute Foto foto,
 		      BindingResult bindingResult,
 		      @PathVariable int id,
 		      Model model
 			
 			
 		) {
-		
+	
 		
 		if(bindingResult.hasErrors()) {
 			
 //			 
-
+		
 			
 			
 			model.addAttribute("foto",foto);
@@ -186,12 +195,15 @@ public class FotoController {
 			return "updateForm";
 		}
 		
+
 		
 		
 		fotoService.save(foto);
 		
 		return "redirect:/superAdmin/foto";
 	}
+	
+	
 	
 	
 }

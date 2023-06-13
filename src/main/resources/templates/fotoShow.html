@@ -15,8 +15,7 @@
 	<p th:text="${foto.descrizione}"></p>
 	<h2 th:text="${foto.visibile}"></h2>
 	
-	<img th:if="${foto.hasUrl()}" th:src="@{'data:image/png;base64,'+${foto.getREImage()}}">
-	
+	<img th:if="${foto.hasImage()}" th:src="@{'data:image/png;base64,'+${foto.getREImage()}}">
 	
 	
 	<div>

@@ -49,7 +49,7 @@ public class Foto {
 	@Lob
 	@Column(length=16777215)
 	@JsonIgnore
-	private byte[] url;
+	private byte[] image;
 	
 	@Transient
 	@JsonIgnore
@@ -140,15 +140,15 @@ public class Foto {
 	}
 
 
-	public boolean hasUrl() {
+	public boolean hasImage() {
 		
-		return getUrl() != null;
+		return getImage() != null;
 	}
-	public byte[] getUrl() {
-		return url;
+	public byte[] getImage() {
+		return image;
 	}
-	public void setUrl(byte[] url) {
-		this.url = url;
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 	public boolean hasMpImage() {
 		
@@ -158,21 +158,19 @@ public class Foto {
 		return mpImage;
 	}
 	public void setMpImage(MultipartFile mpImage) {
-	    try {
-	        setUrl(mpImage.getBytes());
-	        this.mpImage = mpImage;
-	    } catch (IOException e) {
-	        
-	    }
+		
+		try {
+			
+			setImage(mpImage.getBytes());
+			
+			this.mpImage = mpImage;
+		} catch (IOException e) { }
 	}
-	
 	@JsonIgnore
 	public String getREImage() {
 		
-		return Base64.getEncoder().encodeToString(getUrl());
+		return Base64.getEncoder().encodeToString(getImage());
 	}
-	
-//	trovare soluzione per immagine troppo grande
 	
 	public boolean isVisibile() {
 		return visibile;

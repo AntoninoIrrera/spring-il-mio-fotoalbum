@@ -37,7 +37,7 @@
       <th scope="row" th:text="${foto.id}"></th>
       <td th:text="${foto.titolo}"></td>
       <td th:text="${foto.descrizione}"></td>
-       <td><img th:if="${foto.hasUrl()}" th:src="@{'data:image/png;base64,'+${foto.getREImage()}}"></td>
+       <td><img th:if="${foto.hasImage()}" th:src="@{'data:image/png;base64,'+${foto.getREImage()}}"></td>
       <td th:text="${foto.visibile}"></td>
         <td>
       		<a class="btn btn-primary" th:href="@{/superAdmin/foto/{id}(id=${foto.id})}"  sec:authorize="hasAuthority('SUPERADMIN')">show</a>

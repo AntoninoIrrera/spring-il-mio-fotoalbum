@@ -5,15 +5,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form th:action="@{/superAdmin/foto/update/{id}(id = ${foto.id})}" method="post" sec:authorize="hasAuthority('SUPERADMIN')" enctype="multipart/form-data">
+	<form th:action="@{/superAdmin/foto/update/{id}(id = ${foto.id})}" method="post"  sec:authorize="hasAuthority('SUPERADMIN')" enctype="multipart/form-data">
 		<label>titolo:</label>
 		<input type="text" name="titolo" th:value="${foto.titolo}">
 		<p th:if="${errori != null && errori.hasFieldErrors('titolo')}" th:text="${errori.getFieldError('titolo').defaultMessage}"></p>
 		<label>descrizione:</label>
 		<textarea rows="10" cols="10" name="descrizione" th:text="${foto.descrizione}"></textarea>
 		<p th:if="${errori != null && errori.hasFieldErrors('descrizione')}" th:text="${errori.getFieldError('descrizione').defaultMessage}"></p>
-		<label>url:</label>
-		<input type="file" name="url" th:field="${foto.mpImage}">
+		<label>image:</label>
+		<input type="file" name="image" th:field="${foto.mpImage}">
 		<p th:if="${errori != null && errori.hasFieldErrors('url')}" th:text="${errori.getFieldError('url').defaultMessage}"></p>
 		<label>visibile:</label>
 		<label>SI</label>
@@ -40,22 +40,22 @@
 		<button type="submit">Modifica</button>
 	</form>
 	
-	<form th:action="@{/admin/foto/update/{id}(id = ${foto.id})}" method="post" sec:authorize="hasAuthority('ADMIN')" enctype="multipart/form-data">
-	
+	<form th:action="@{/admin/foto/update/{id}(id = ${foto.id})}" method="post"  sec:authorize="hasAuthority('ADMIN')" enctype="multipart/form-data">
+		
 		<label>titolo:</label>
-		<input type="text" name="titolo" th:value="${foto.titolo}">
+		<input type="text" name="titolo" th:field="${foto.foto.titolo}">
 		<p th:if="${errori != null && errori.hasFieldErrors('titolo')}" th:text="${errori.getFieldError('titolo').defaultMessage}"></p>
 		<label>descrizione:</label>
-		<textarea rows="10" cols="10" name="descrizione" th:text="${foto.descrizione}"></textarea>
+		<textarea rows="10" cols="10" name="descrizione" th:field="${foto.foto.descrizione}"></textarea>
 		<p th:if="${errori != null && errori.hasFieldErrors('descrizione')}" th:text="${errori.getFieldError('descrizione').defaultMessage}"></p>
-		<label>url:</label>
-		<input type="file" name="url" th:field="${foto.mpImage}">
+		<label>image:</label>
+		<input type="file" name="image" th:field="${foto.mpImage}">
 		<p th:if="${errori != null && errori.hasFieldErrors('url')}" th:text="${errori.getFieldError('url').defaultMessage}"></p>
 		<label>visibile:</label>
 		<label>SI</label>
-		<input type="radio" name="visibile" value="1" th:checked="${foto.visibile} == true">
+		<input type="radio" name="visibile" value="1" th:checked="${foto.foto.visibile} == true">
 		<label>NO</label>
-		<input type="radio" name="visibile" value="0" th:checked="${foto.visibile} == false">
+		<input type="radio" name="visibile" value="0" th:checked="${foto.foto.visibile} == false">
 		<p th:if="${errori != null && errori.hasFieldErrors('visibile')}" th:text="${errori.getFieldError('visibile').defaultMessage}"></p>
 		
 		<div

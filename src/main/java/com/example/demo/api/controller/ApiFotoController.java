@@ -1,9 +1,11 @@
 package com.example.demo.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,6 +53,22 @@ public class ApiFotoController {
 		
 	}
 	
+	 @GetMapping("/foto/{id}/image")
+	    public ResponseEntity<byte[]> getFotoImage(@PathVariable int id) {
+	    
+	        Optional<Foto> fotoOpt = fotoService.findById(id);
+	        
+	        
+	        Foto foto = fotoOpt.get();
+
+	        if (foto == null) {
+	            return ResponseEntity.notFound().build();
+	        }
+
+	        byte[] image = foto.getImage();
+
+	        return new ResponseEntity<>(image,HttpStatus.OK);
+	    }
 	
 	
 	
